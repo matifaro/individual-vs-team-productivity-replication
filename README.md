@@ -1,15 +1,19 @@
 # Replication Package - Measuring What Matters: Individual vs Team Productivity in Software Development
 
 **Author:** Matilde Faro Martins Castelo Pires
+
 **Contact:** matildefaro.work@gmail.com
-**Repository:** 
+
+**Repository:** Measuring What Matters: Individual vs Team Productivity in Software Development
+
 **DOI:**
 
 ---
 ## Overview
 
-This repository cibtains the complete replication package for the study:
+This repository contains the complete replication package for the study:
 > **"Measuring What Matters: Individual vs Team Productivity in Software Development"**
+
 The package includes all materials, data, and code necessary to replicate the analysis presented in the study.
 
 ---
@@ -28,10 +32,10 @@ These findings suggest that the misalignment documented in the literature is pri
 ---
 ## Data Availability
 
-The data used in this study come from an original survey conducted between May to June 2026.
+The data used in this study come from an original survey conducted between May and June 2026.
 
 **Data Sharing:**
-- Survey data is fully anonymised and is included in this packeg (`data/results-survey331585.csv`)
+- Survey data is fully anonymised and is included in this package (`data/results-survey331585.csv`)
 - No personally identifiable information is present
 
 **Interview Data:**
@@ -41,7 +45,7 @@ The data used in this study come from an original survey conducted between May t
 ---
 ## Software Requirements
 
-### Pyhton Version
+### Python Version
 - Python 3.7 or higher
 
 ### Required Packages
@@ -59,7 +63,8 @@ Each script can be run individually:
 python3 code/productivity_definitions_analysis.py
 ```
 
-Expectd runtime per script: 10 seconds to 1 minute
+Expected runtime per script: 10 seconds to 1 minute
+
 All generated figures are saved to `results/` directory.
 
 ---
@@ -74,7 +79,7 @@ Each script contains a header with:
 - DESCRIPTION: What the script does
 - DEPENDENCIES: Required packages
 - INPUT: Required data files
-- OUTPU: Generated files
+- OUTPUT: Generated files
 - USAGE: How to run the script
 
 ---
@@ -86,7 +91,7 @@ Descriptive statistics, including frequencies, percentages, means, medians, and 
 
 For group comparisons, non-parametric tests were employed due to the ordinal nature of Likert-scale data. The Mann-Whitney U test was used to compare the two independent groups of managers and developers, while the Wilcoxon signed-rank test was applied for paired within-subject comparison. For comparisons involving three or more groups, e.g. work setup, the Kruskal-Wallis H test was used, followed by pairwise Mann-Whitney U tests where appropriate.
 
-Pairwise associations between ordinal variables were assessed using Spearman's rank correlation coefficient (p). Effect sizes are reported as rank-biserial correlation (r) for Mann-Whitney U tests and as Spearman's p for correlations.
+Pairwise associations between ordinal variables were assessed using Spearman's rank correlation coefficient (p). Effect sizes are reported as rank-biserial correlation (r) for Mann-Whitney U tests and as Spearman's ρ for correlations.
 
 For binary outcomes, in multiple-choice questions, Fisher's exact test was used to compare proportions between groups.
 
@@ -102,11 +107,15 @@ All statistical tests were two-sided, and statistical significance was set at p=
 ## Contact
 
 For questions, issues, or clarification regarding this replication package, please contact:
+
 **Matilde Faro Martins Castelo Pires**
+
 Email: matildefaro.work@gmail.com
 
 ---
 ## Citation
+
+If you use this replication package or its contents, please cite:
 
 ```
 Pires, Matilde Faro (2026)
