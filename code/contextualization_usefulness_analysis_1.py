@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -231,15 +231,16 @@ for lbl in cat_labels:
     all_p.append(p)
 
 # Single-column heatmap
-fig, ax = plt.subplots(figsize=(5, 7))
+fig, ax = plt.subplots(figsize=(6, 8))
 r_array = np.array(all_r).reshape(-1, 1)
 im = ax.imshow(r_array, cmap="RdYlGn", vmin=-1, vmax=1, aspect="auto")
-plt.colorbar(im, ax=ax, label="Spearman r")
+plt.colorbar(im, ax=ax, label="Spearman r", orientation='vertical', 
+             fraction=0.046, pad=0.04)
 
 ax.set_xticks([0])
-ax.set_xticklabels(["r (all respondents)"], fontsize=10)
+ax.set_xticklabels(["r (all respondents)"], fontsize=14)
 ax.set_yticks(range(len(cat_labels)))
-ax.set_yticklabels([l.replace("\n", " ") for l in cat_labels], fontsize=9)
+ax.set_yticklabels([l.replace("\n", " ") for l in cat_labels], fontsize=13)
 
 for i, (r, p) in enumerate(zip(all_r, all_p)):
     if not np.isnan(r):
@@ -248,12 +249,17 @@ for i, (r, p) in enumerate(zip(all_r, all_p)):
         if sig != "(ns)":
             txt += f" {sig}"
         ax.text(0, i, txt, ha="center", va="center",
-                fontsize=9, fontweight="bold",
+                fontsize=12, fontweight="bold",
                 color="white" if abs(r) > 0.5 else "black")
 
-
+# Add significance note below the heatmap
 fig.text(0.5, 0.02, "* p<0.05  ** p<0.01  *** p<0.001",
-         ha="center", fontsize=8, color="gray", style="italic")
+         ha="center", fontsize=11, color="gray", style="italic")
+
+# Adjust colorbar font size
+cbar = ax.images[-1].colorbar
+cbar.ax.tick_params(labelsize=12)
+cbar.set_label('Spearman r', fontsize=13)
 
 plt.tight_layout()
 path = OUT_DIR + "ctx_fig1_heatmap.png"

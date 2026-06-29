@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -229,7 +229,7 @@ print(f"\n  Cross-role tension MWU: U={u_t:.1f}, p={p_t:.4f}  {sig_label(p_t)}")
 # ══════════════════════════════════════════════════════════════════════════════
 # FIGURE 1 — 2×2 diverging Likert bar
 # ══════════════════════════════════════════════════════════════════════════════
-fig, ax = plt.subplots(figsize=(11, 5))
+fig, ax = plt.subplots(figsize=(13, 6))
 
 panel_meta = [
     ("MGR — Quantitative",  MGR_QUANT_COL,   mgr),
@@ -248,7 +248,7 @@ for i, (lbl, col, subset) in enumerate(panel_meta):
                     edgecolor="white", height=0.6)
             if pct > 5:
                 ax.text(-left_neg - pct / 2, i, f"{pct:.0f}%",
-                        ha="center", va="center", fontsize=8.5, color="white")
+                        ha="center", va="center", fontsize=12, color="white")
             left_neg += pct
         elif level == "Neutral":
             ax.barh(i,  pct / 2, left= left_pos, color=COLORS_DIV[level],
@@ -257,7 +257,7 @@ for i, (lbl, col, subset) in enumerate(panel_meta):
                     edgecolor="white", height=0.6)
             if pct > 5:
                 ax.text(left_pos + pct / 4, i, f"{pct:.0f}%",
-                        ha="center", va="center", fontsize=8.5, color="black")
+                        ha="center", va="center", fontsize=12, color="black")
             left_neg += pct / 2
             left_pos += pct / 2
         else:
@@ -265,18 +265,19 @@ for i, (lbl, col, subset) in enumerate(panel_meta):
                     edgecolor="white", height=0.6)
             if pct > 5:
                 ax.text(left_pos + pct / 2, i, f"{pct:.0f}%",
-                        ha="center", va="center", fontsize=8.5, color="white")
+                        ha="center", va="center", fontsize=12, color="white")
             left_pos += pct
 
 ax.axhline(1.5, color="black", linewidth=0.7, linestyle=":")
 ax.set_yticks(range(4))
-ax.set_yticklabels([m[0] for m in panel_meta], fontsize=10)
+ax.set_yticklabels([m[0] for m in panel_meta], fontsize=14)
 ax.axvline(0, color="black", linewidth=0.8)
-ax.set_xlabel("← Disagree    |    Agree →", fontsize=10)
+ax.set_xlabel("← Disagree    |    Agree →", fontsize=15)
 legend_patches = [mpatches.Patch(color=COLORS_DIV[l], label=l) for l in LIKERT_ORDER]
-ax.legend(handles=legend_patches, loc="lower right", fontsize=8,
+ax.legend(handles=legend_patches, loc="lower right", fontsize=12,
           ncol=5, bbox_to_anchor=(1.0, -0.22))
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=12)
 plt.tight_layout()
 path = OUT_DIR + "qvsc_fig1_diverging_bar.png"
 plt.savefig(path, dpi=150, bbox_inches="tight")

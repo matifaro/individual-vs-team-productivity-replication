@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -75,7 +75,7 @@ for cat in COMPANY_ORDER:
     dev_count = dev[COMPANY_COL].value_counts().get(cat, 0)
     print(f"  {cat:<18} {mgr_count:>10} {dev_count:>12}")
 
-fig, ax = plt.subplots(figsize=(8, 5))
+fig, ax = plt.subplots(figsize=(9, 6))
 
 short_labels = ["1–10", "11–50", "51–250", "250+"]
 x = np.arange(len(COMPANY_ORDER))
@@ -90,16 +90,17 @@ ax.bar(x + w/2, dev_co, w, color=DEV_COLOR, alpha=0.85, label=f"Developers (n={l
 # Add count labels on bars
 for xi, (mv, dv) in enumerate(zip(mgr_co, dev_co)):
     if mv > 0:
-        ax.text(xi - w/2, mv + 0.1, str(mv), ha="center", va="bottom", fontsize=9, fontweight="bold")
+        ax.text(xi - w/2, mv + 0.1, str(mv), ha="center", va="bottom", fontsize=13, fontweight="bold")
     if dv > 0:
-        ax.text(xi + w/2, dv + 0.1, str(dv), ha="center", va="bottom", fontsize=9, fontweight="bold")
+        ax.text(xi + w/2, dv + 0.1, str(dv), ha="center", va="bottom", fontsize=13, fontweight="bold")
 
 ax.set_xticks(x)
-ax.set_xticklabels(short_labels, fontsize=11)
-ax.set_xlabel("Number of Employees", fontsize=10)
-ax.set_ylabel("Count", fontsize=11)
-ax.legend(fontsize=9)
+ax.set_xticklabels(short_labels, fontsize=14)
+ax.set_xlabel("Number of Employees", fontsize=15)
+ax.set_ylabel("Count", fontsize=15)
+ax.legend(fontsize=13)
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=13)
 
 plt.tight_layout()
 path = OUT_DIR + "demo_companysize.png"

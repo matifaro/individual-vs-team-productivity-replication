@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -140,7 +140,7 @@ print(f"\n  Does Not Apply excluded — Individual: {dna_ind}, Team: {dna_team},
 # SCATTER PLOTS (single output, two panels)
 print("\n[Output] Generating scatter plots …")
 
-fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+fig, axes = plt.subplots(1, 2, figsize=(15, 6))
 
 jitter = 0.12
 tick_labels = ["SD", "D", "N", "A", "SA"]
@@ -159,25 +159,28 @@ for ax, x_series, y_series, r_val, p_val, n, xlabel, color in configs:
 
     ax.scatter(x_vals + np.random.uniform(-jitter, jitter, len(x_vals)),
                y_vals + np.random.uniform(-jitter, jitter, len(y_vals)),
-               alpha=0.65, s=60, color=color, edgecolors="white", linewidth=0.5)
+               alpha=0.65, s=70, color=color, edgecolors="white", linewidth=0.5)
 
     z = np.polyfit(x_vals, y_vals, 1)
-    ax.plot([1, 5], np.poly1d(z)([1, 5]), "k--", linewidth=1.8, alpha=0.7,
+    ax.plot([1, 5], np.poly1d(z)([1, 5]), "k--", linewidth=2, alpha=0.7,
             label=f"Trend (slope={z[0]:.2f})")
 
-    ax.set_xticks([1, 2, 3, 4, 5]); ax.set_xticklabels(tick_labels)
-    ax.set_yticks([1, 2, 3, 4, 5]); ax.set_yticklabels(tick_labels)
-    ax.set_xlabel(xlabel, fontsize=10)
-    ax.set_ylabel('"I try to improve on manager\'s criteria"', fontsize=10)
+    ax.set_xticks([1, 2, 3, 4, 5])
+    ax.set_xticklabels(tick_labels, fontsize=13)
+    ax.set_yticks([1, 2, 3, 4, 5])
+    ax.set_yticklabels(tick_labels, fontsize=13)
+    ax.set_xlabel(xlabel, fontsize=14)
+    ax.set_ylabel('"I try to improve on manager\'s criteria"', fontsize=14)
     ax.set_title(f"Spearman r = {r_val:.3f}, p = {p_val:.4f} "
                  f"({significance_label(p_val)}, n={n})",
-                 fontsize=10, fontweight="bold")
-    ax.legend(fontsize=9)
+                 fontsize=13, fontweight="bold")
+    ax.legend(fontsize=12)
     ax.grid(True, alpha=0.2)
     ax.spines[["top", "right"]].set_visible(False)
+    ax.tick_params(axis='both', which='major', labelsize=12)
 
 note = "* p<0.05  ** p<0.01  *** p<0.001 (Spearman correlation, two-sided)"
-fig.text(0.98, 0.01, note, ha="right", fontsize=8, color="gray", style="italic")
+fig.text(0.98, 0.01, note, ha="right", fontsize=11, color="gray", style="italic")
 
 plt.tight_layout()
 path = OUT_DIR + "indteam_gaming_scatter.png"

@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -208,7 +208,7 @@ panel_meta = [
     ("DEV — Fair Assessment",    DEV_FAIR_COL,      dev, DEV_COLOR),
 ]
 
-fig, ax = plt.subplots(figsize=(11, 5))
+fig, ax = plt.subplots(figsize=(13, 6))
 y_ticks = []
 
 for i, (lbl, col, subset, _) in enumerate(panel_meta):
@@ -221,7 +221,7 @@ for i, (lbl, col, subset, _) in enumerate(panel_meta):
                     edgecolor="white", height=0.6)
             if pct > 5:
                 ax.text(-left_neg - pct / 2, i, f"{pct:.0f}%",
-                        ha="center", va="center", fontsize=8.5, color="white")
+                        ha="center", va="center", fontsize=12, color="white")
             left_neg += pct
         elif level == "Neutral":
             ax.barh(i,  pct / 2, left= left_pos, color=COLORS_DIV[level],
@@ -230,7 +230,7 @@ for i, (lbl, col, subset, _) in enumerate(panel_meta):
                     edgecolor="white", height=0.6)
             if pct > 5:
                 ax.text(left_pos + pct / 4, i, f"{pct:.0f}%",
-                        ha="center", va="center", fontsize=8.5, color="black")
+                        ha="center", va="center", fontsize=12, color="black")
             left_neg += pct / 2
             left_pos += pct / 2
         else:
@@ -238,7 +238,7 @@ for i, (lbl, col, subset, _) in enumerate(panel_meta):
                     edgecolor="white", height=0.6)
             if pct > 5:
                 ax.text(left_pos + pct / 2, i, f"{pct:.0f}%",
-                        ha="center", va="center", fontsize=8.5, color="white")
+                        ha="center", va="center", fontsize=12, color="white")
             left_pos += pct
     y_ticks.append(lbl)
 
@@ -246,13 +246,14 @@ for i, (lbl, col, subset, _) in enumerate(panel_meta):
 ax.axhline(1.5, color="black", linewidth=0.7, linestyle=":")
 
 ax.set_yticks(range(4))
-ax.set_yticklabels(y_ticks, fontsize=10)
+ax.set_yticklabels(y_ticks, fontsize=14)
 ax.axvline(0, color="black", linewidth=0.8)
-ax.set_xlabel("← Disagree    |    Agree →", fontsize=10)
+ax.set_xlabel("← Disagree    |    Agree →", fontsize=15)
 legend_patches = [mpatches.Patch(color=COLORS_DIV[l], label=l) for l in LIKERT_ORDER]
-ax.legend(handles=legend_patches, loc="lower right", fontsize=8,
+ax.legend(handles=legend_patches, loc="lower right", fontsize=12,
           ncol=5, bbox_to_anchor=(1.0, -0.22))
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=12)
 plt.tight_layout()
 path = OUT_DIR + "misfair_fig3_diverging_all.png"
 plt.savefig(path, dpi=150, bbox_inches="tight")

@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -248,13 +248,13 @@ for si in range(14):
 # ══════════════════════════════════════════════════════════════════════════════
 # FIGURE 1 — Scatter: belief score vs team-orientation (by role)
 # ══════════════════════════════════════════════════════════════════════════════
-fig, ax = plt.subplots(figsize=(7, 5))
+fig, ax = plt.subplots(figsize=(8, 6))
 
 for role, color in [("Manager", MGR_COLOR), ("Developer", DEV_COLOR)]:
     sub = adf[adf["role_short"] == role][["belief_sc", "team_score"]].dropna()
     jitter = np.random.default_rng(99).uniform(-0.08, 0.08, size=len(sub))
     ax.scatter(sub["belief_sc"] + jitter, sub["team_score"],
-               color=color, alpha=0.65, s=55, label=f"{role} (n={len(sub)})")
+               color=color, alpha=0.65, s=65, label=f"{role} (n={len(sub)})")
 
 # Trend line (all)
 clean2 = adf[["belief_sc", "team_score"]].dropna()
@@ -262,17 +262,18 @@ if len(clean2) > 3:
     z = np.polyfit(clean2["belief_sc"], clean2["team_score"], 1)
     xline = np.linspace(0.8, 5.2, 100)
     ax.plot(xline, np.polyval(z, xline), color="black",
-            linewidth=1.5, linestyle="--", alpha=0.6, label="Trend (all)")
+            linewidth=2, linestyle="--", alpha=0.6, label="Trend (all)")
 
 ax.set_xticks([1, 2, 3, 4, 5])
 ax.set_xticklabels(["Strongly\nDisagree", "Disagree", "Neutral",
-                    "Agree", "Strongly\nAgree"], fontsize=9)
-ax.set_ylabel("Team-orientation score\n(fraction of scenarios choosing B)", fontsize=10)
+                    "Agree", "Strongly\nAgree"], fontsize=13)
+ax.set_ylabel("Team-orientation score\n(fraction of scenarios choosing B)", fontsize=14)
 ax.set_xlim(0.5, 5.5)
 ax.set_ylim(-0.05, 1.1)
 ax.axhline(0.5, color="gray", linestyle=":", linewidth=0.8, alpha=0.6)
-ax.legend(fontsize=9)
+ax.legend(fontsize=12)
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=12)
 plt.tight_layout()
 path = OUT_DIR + "teambelief_fig1_scatter.png"
 plt.savefig(path, dpi=150, bbox_inches="tight")

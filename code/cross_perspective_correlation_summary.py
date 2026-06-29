@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -174,7 +174,7 @@ rows = [
     ("Mgr: believes gaming → uses more categories",       r6, p6, N_MGR),
 ]
 
-fig, ax = plt.subplots(figsize=(11, 4))
+fig, ax = plt.subplots(figsize=(13, 5))
 y_pos = np.arange(len(rows))
 
 r_vals = [r[1] for r in rows]
@@ -195,19 +195,20 @@ for bar, r_val, p_val, n in zip(bars, r_vals, p_vals, ns):
     ha   = "left" if r_val >= 0 else "right"
     label_txt = f"r={r_val:.2f} {sig}  (n={n})"
     ax.text(xpos, bar.get_y() + bar.get_height()/2, label_txt,
-            va="center", ha=ha, fontsize=8.5)
+            va="center", ha=ha, fontsize=12)
 
 ax.set_yticks(y_pos)
-ax.set_yticklabels(labels_r, fontsize=9)
+ax.set_yticklabels(labels_r, fontsize=13)
 ax.set_xlim(-0.8, 0.9)
-ax.set_xlabel("Spearman r", fontsize=10)
+ax.set_xlabel("Spearman r", fontsize=14)
 mgr_patch = mpatches.Patch(color=MGR_COLOR, label="Manager")
 dev_patch = mpatches.Patch(color=DEV_COLOR, label="Developer")
-ax.legend(handles=[mgr_patch, dev_patch], fontsize=9, loc="lower right")
+ax.legend(handles=[mgr_patch, dev_patch], fontsize=12, loc="lower right")
 ax.spines[["top","right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=12)
 
 note = "* p<0.05  ** p<0.01  *** p<0.001"
-fig.text(0.98, 0.01, note, ha="right", fontsize=7.5, color="gray", style="italic")
+fig.text(0.98, 0.01, note, ha="right", fontsize=10, color="gray", style="italic")
 plt.tight_layout()
 path = OUT_DIR + "gaming_output4_summary.png"
 plt.savefig(path, dpi=150, bbox_inches="tight")

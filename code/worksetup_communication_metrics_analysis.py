@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -213,14 +213,16 @@ for s in SETUP_ORDER:
 matrix = np.array(grid_means).reshape(len(SETUP_ORDER), len(roles))
 ns_mat = np.array(grid_ns).reshape(len(SETUP_ORDER), len(roles))
 
-fig, ax = plt.subplots(figsize=(6, 4.5))
+fig, ax = plt.subplots(figsize=(7, 5.5))
 im = ax.imshow(matrix, cmap="RdYlGn", vmin=1, vmax=5, aspect="auto")
-plt.colorbar(im, ax=ax, label="Mean Usefulness Score (1–5)")
+cbar = plt.colorbar(im, ax=ax, label="Mean Usefulness Score (1–5)")
+cbar.ax.tick_params(labelsize=12)
+cbar.set_label('Mean Usefulness Score (1–5)', fontsize=13)
 
 ax.set_xticks(range(len(roles)))
-ax.set_xticklabels([r for r, _ in roles], fontsize=11)
+ax.set_xticklabels([r for r, _ in roles], fontsize=14)
 ax.set_yticks(range(len(SETUP_ORDER)))
-ax.set_yticklabels(SETUP_ORDER, fontsize=11)
+ax.set_yticklabels(SETUP_ORDER, fontsize=14)
 
 for i in range(len(SETUP_ORDER)):
     for j in range(len(roles)):
@@ -228,9 +230,10 @@ for i in range(len(SETUP_ORDER)):
         n   = ns_mat[i, j]
         if not np.isnan(val):
             ax.text(j, i, f"{val:.2f}\n(n={n})", ha="center", va="center",
-                    fontsize=10, fontweight="bold",
+                    fontsize=12, fontweight="bold",
                     color="white" if val < 2.5 or val > 4.2 else "black")
 
+ax.tick_params(axis='both', which='major', labelsize=12)
 plt.tight_layout()
 path = OUT_DIR + "worksetup_fig3_heatmap.png"
 plt.savefig(path, dpi=150, bbox_inches="tight")

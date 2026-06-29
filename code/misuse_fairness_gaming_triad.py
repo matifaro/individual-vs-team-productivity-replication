@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -99,7 +99,7 @@ print(f"    'Assessment is fair'      - mean: {s_fair.mean():.2f}, SD: {s_fair.s
 print(f"    'Metrics incentivize gaming' - mean: {s_gam.mean():.2f}, SD: {s_gam.std():.2f}")
 
 # Create figure with 3 panels
-fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+fig, axes = plt.subplots(1, 3, figsize=(17, 6))
 
 pairs = [
     (s_mis,  s_fair, "dev_misuse",  "dev_fair",
@@ -128,22 +128,23 @@ for ax, (sa, sb, ka, kb, xlabel, ylabel, title, color) in zip(axes, pairs):
     jitter = 0.12
     ax.scatter(xc + np.random.uniform(-jitter, jitter, n),
                yc + np.random.uniform(-jitter, jitter, n),
-               alpha=0.6, s=55, color=color, edgecolors="white", linewidth=0.5)
+               alpha=0.6, s=65, color=color, edgecolors="white", linewidth=0.5)
     
     # Regression line
     z = np.polyfit(xc, yc, 1)
-    ax.plot([1, 5], np.poly1d(z)([1, 5]), "k--", linewidth=1.8, alpha=0.6,
+    ax.plot([1, 5], np.poly1d(z)([1, 5]), "k--", linewidth=2, alpha=0.6,
             label=f"slope={z[0]:.2f}")
     
     ax.set_xticks([1, 2, 3, 4, 5])
-    ax.set_xticklabels(["SD","D","N","A","SA"], fontsize=8)
+    ax.set_xticklabels(["SD","D","N","A","SA"], fontsize=13)
     ax.set_yticks([1, 2, 3, 4, 5])
-    ax.set_yticklabels(["SD","D","N","A","SA"], fontsize=8)
-    ax.set_xlabel(xlabel, fontsize=9)
-    ax.set_ylabel(ylabel, fontsize=9)
-    ax.legend(fontsize=8)
+    ax.set_yticklabels(["SD","D","N","A","SA"], fontsize=13)
+    ax.set_xlabel(xlabel, fontsize=14)
+    ax.set_ylabel(ylabel, fontsize=14)
+    ax.legend(fontsize=12)
     ax.grid(True, alpha=0.2)
     ax.spines[["top","right"]].set_visible(False)
+    ax.tick_params(axis='both', which='major', labelsize=12)
 
 plt.tight_layout()
 path = OUT_DIR + "analysis5_misuse_fairness_gaming_triad.png"

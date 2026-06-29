@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -142,27 +142,30 @@ mat = np.array([[r["m1"], r["m2"], r["d1"], r["d2"]] for r in s4])
 col_labels = ["M1\nMgr own", "M2\nMgr→Dev\nguess",
               "D1\nDev own", "D2\nDev→Mgr\nguess"]
 
-fig, ax = plt.subplots(figsize=(9, 8))
+fig, ax = plt.subplots(figsize=(10.5, 9.5))
 im = ax.imshow(mat, cmap="RdYlGn", aspect="auto", vmin=0, vmax=100)
 
 # Colorbar
-plt.colorbar(im, ax=ax, label="% choosing Scenario B", shrink=0.85)
+cbar = plt.colorbar(im, ax=ax, label="% choosing Scenario B", shrink=0.85)
+cbar.ax.tick_params(labelsize=12)
+cbar.set_label('% choosing Scenario B', fontsize=13)
 
 # Labels
 ax.set_xticks(range(4))
-ax.set_xticklabels(col_labels, fontsize=10)
+ax.set_xticklabels(col_labels, fontsize=13)
 ax.set_yticks(range(len(s4)))
-ax.set_yticklabels([r["label_nl"] for r in s4], fontsize=9)
+ax.set_yticklabels([r["label_nl"] for r in s4], fontsize=11)
 
 # Add percentage labels in each cell
 for i in range(len(s4)):
     for j in range(4):
         v = mat[i, j]
         ax.text(j, i, f"{v:.0f}%", ha="center", va="center",
-                color="white" if (v > 75 or v < 25) else "black", fontsize=9)
+                color="white" if (v > 75 or v < 25) else "black", fontsize=12)
 
 # Add vertical separator between M and D sections
 ax.axvline(1.5, color="white", linewidth=2)
+ax.tick_params(axis='both', which='major', labelsize=11)
 
 plt.tight_layout()
 path = OUT_DIR + "scenarios_output4_heatmap.png"

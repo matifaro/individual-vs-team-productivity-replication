@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -183,7 +183,7 @@ sigs     = [r["sig"] for r in results_sorted]
 y = np.arange(len(labels))
 
 # Create figure with two panels: main chart + gap panel
-fig, axes = plt.subplots(1, 2, figsize=(13, 5),
+fig, axes = plt.subplots(1, 2, figsize=(15, 6),
                          gridspec_kw={"width_ratios": [3, 1]})
 
 # Left panel: Grouped bar chart
@@ -202,15 +202,16 @@ for i, (m, d) in enumerate(zip(mgr_pcts, dev_pcts)):
 for i, (sig, m, d) in enumerate(zip(sigs, mgr_pcts, dev_pcts)):
     if sig != "(ns)":
         ax.text(max(m, d) + 1.5, i, sig, va="center",
-                fontsize=9, color="darkred", fontweight="bold")
+                fontsize=13, color="darkred", fontweight="bold")
 
 ax.set_yticks(y)
-ax.set_yticklabels(labels, fontsize=9)
+ax.set_yticklabels(labels, fontsize=13)
 ax.set_xlim(0, 110)
-ax.set_xlabel('% Agree or Strongly Agree', fontsize=10)
+ax.set_xlabel('% Agree or Strongly Agree', fontsize=15)
 ax.axvline(50, color="gray", linestyle="--", linewidth=0.7, alpha=0.5)
-ax.legend(loc="lower right", fontsize=9)
+ax.legend(loc="lower right", fontsize=13)
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=12)
 
 # Right panel: Gap (Manager - Developer)
 ax2 = axes[1]
@@ -226,15 +227,16 @@ for bar, val, sig in zip(bars, gaps, sigs):
     if sig != "(ns)":
         label_txt += f" {sig}"
     ax2.text(xpos, bar.get_y() + bar.get_height() / 2,
-             label_txt, va="center", ha=ha, fontsize=8)
+             label_txt, va="center", ha=ha, fontsize=12)
 
 ax2.set_yticks(y)
 ax2.set_yticklabels([])
-ax2.set_xlabel("Gap (Mgr − Dev) in %", fontsize=10)
+ax2.set_xlabel("Gap (Mgr − Dev) in %", fontsize=15)
 ax2.spines[["top", "right"]].set_visible(False)
+ax2.tick_params(axis='both', which='major', labelsize=12)
 
 note = "* p<0.05  ** p<0.01  *** p<0.001"
-fig.text(0.98, 0.01, note, ha="right", fontsize=7.5, color="gray", style="italic")
+fig.text(0.98, 0.01, note, ha="right", fontsize=11, color="gray", style="italic")
 
 plt.tight_layout()
 path = OUT_DIR + "indteam_gap_chart.png"

@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -113,7 +113,7 @@ def sig(p):
 def annotate(ax, u, p, rb, pos=(0.5, 0.97)):
     #Add annotation box with test statistics
     txt = f"U={u:.0f}, p={p:.3f} ({sig(p)})\nr={rb:.3f}"
-    ax.text(*pos, txt, transform=ax.transAxes, ha="center", va="top", fontsize=8.5,
+    ax.text(*pos, txt, transform=ax.transAxes, ha="center", va="top", fontsize=12,
             bbox=dict(boxstyle="round,pad=0.35", facecolor="#FEF9C3",
                       edgecolor="#CA8A04"))
 
@@ -130,14 +130,15 @@ def likert_bar(ax, data_dict, title, colors_list, labels_list, ylabel="%"):
             if v > 5:
                 ax.text(bar.get_x() + bar.get_width() / 2,
                         bar.get_height() + 0.8,
-                        f"{v:.0f}%", ha="center", va="bottom", fontsize=7.5)
+                        f"{v:.0f}%", ha="center", va="bottom", fontsize=11)
     ax.set_xticks(x)
-    ax.set_xticklabels([l.replace(" ", "\n") for l in LIKERT_ORDER], fontsize=8)
+    ax.set_xticklabels([l.replace(" ", "\n") for l in LIKERT_ORDER], fontsize=12)
     ax.set_ylim(0, 100)
-    ax.set_ylabel(ylabel)
-    ax.set_title(title, fontweight="bold", fontsize=10)
-    ax.legend(fontsize=8)
+    ax.set_ylabel(ylabel, fontsize=14)
+    ax.set_title(title, fontweight="bold", fontsize=14)
+    ax.legend(fontsize=12)
     ax.spines[["top", "right"]].set_visible(False)
+    ax.tick_params(axis='both', which='major', labelsize=11)
 
 def boxplot_pair(ax, s1, s2, labels, colors, title, u=None, p=None, rb=None):
     #Create paired boxplot with jittered points
@@ -152,13 +153,14 @@ def boxplot_pair(ax, s1, s2, labels, colors, title, u=None, p=None, rb=None):
         ax.scatter(np.random.normal(i + 1, 0.06, len(data)),
                    data, alpha=0.35, s=18, color="gray", zorder=3)
     ax.set_xticks([1, 2])
-    ax.set_xticklabels(labels, fontsize=9)
+    ax.set_xticklabels(labels, fontsize=13)
     ax.set_yticks([1, 2, 3, 4, 5])
-    ax.set_yticklabels(["SD", "D", "N", "A", "SA"], fontsize=8)
+    ax.set_yticklabels(["SD", "D", "N", "A", "SA"], fontsize=12)
     ax.set_ylim(0.3, 5.9)
     ax.spines[["top", "right"]].set_visible(False)
     if u is not None:
         annotate(ax, u, p, rb)
+    ax.tick_params(axis='both', which='major', labelsize=11)
 
 
 # CONSOLE
@@ -207,7 +209,7 @@ boxplot_pair(axes[1], s_mgr_c, s_dev_c,
              [MGR_COLOR, DEV_COLOR],
              f"MWU: U={u4:.0f}, p={p4:.3f} ({sig(p4)}), r={r4:.3f}",
              u4, p4, r4)
-axes[1].set_ylabel("Agreement level")
+axes[1].set_ylabel("Agreement level", fontsize=14)
 
 plt.tight_layout()
 path = OUT_DIR + "analysis6_contextualization_consensus.png"

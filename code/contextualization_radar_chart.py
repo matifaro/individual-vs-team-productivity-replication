@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -248,24 +248,25 @@ N = len(cat_labels)
 angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
 angles += angles[:1]
 
-fig, ax = plt.subplots(figsize=(7, 7), subplot_kw=dict(polar=True))
+fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
 
 for grp, color, ls in [("High (4–5)", HIGH_COLOR, "-"),
                         ("Low (1–3)",  LOW_COLOR,  "--")]:
     sub = adf[adf["ctx_group"] == grp]
     vals = [sub[lbl].dropna().mean() for lbl in cat_labels]
     vals += vals[:1]
-    ax.plot(angles, vals, color=color, linewidth=2, linestyle=ls,
+    ax.plot(angles, vals, color=color, linewidth=2.5, linestyle=ls,
             label=f"Context {grp} (n={len(sub)})")
-    ax.fill(angles, vals, color=color, alpha=0.12)
+    ax.fill(angles, vals, color=color, alpha=0.15)
 
 ax.set_xticks(angles[:-1])
-ax.set_xticklabels(short_labels, fontsize=8)
+ax.set_xticklabels(short_labels, fontsize=12)
 ax.set_ylim(1, 5)
 ax.set_yticks([2, 3, 4, 5])
-ax.set_yticklabels(["2", "3", "4", "5"], fontsize=7)
+ax.set_yticklabels(["2", "3", "4", "5"], fontsize=11)
 
-ax.legend(loc="upper right", bbox_to_anchor=(1.35, 1.1), fontsize=9)
+ax.legend(loc="upper right", bbox_to_anchor=(1.35, 1.1), fontsize=13)
+ax.tick_params(axis='both', which='major', labelsize=11)
 plt.tight_layout()
 path = OUT_DIR + "ctx_fig2_radar.png"
 plt.savefig(path, dpi=150, bbox_inches="tight")
