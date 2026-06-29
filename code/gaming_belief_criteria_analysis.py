@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -88,27 +88,28 @@ print(f"  Regression slope = {z[0]:.3f}")
 print(f"  Intercept = {z[1]:.3f}")
 
 # PLOT
-fig, ax = plt.subplots(figsize=(6.5, 5.5))
+fig, ax = plt.subplots(figsize=(7.5, 6.5))
 
 jitter = 0.12
 tick_labels = ["SD", "D", "N", "A", "SA"]
 
 ax.scatter(xg + np.random.uniform(-jitter, jitter, len(xg)),
            yg + np.random.uniform(-jitter, jitter, len(yg)),
-           alpha=0.65, s=60, color="#DC7633", edgecolors="white", linewidth=0.5)
+           alpha=0.65, s=70, color="#DC7633", edgecolors="white", linewidth=0.5)
 
-ax.plot([1, 5], np.poly1d(z)([1, 5]), "k--", linewidth=1.8, alpha=0.7,
+ax.plot([1, 5], np.poly1d(z)([1, 5]), "k--", linewidth=2, alpha=0.7,
         label=f"Trend (slope={z[0]:.2f})")
 
 ax.set_xticks([1,2,3,4,5])
-ax.set_xticklabels(tick_labels)
+ax.set_xticklabels(tick_labels, fontsize=13)
 ax.set_yticks([1,2,3,4,5])
-ax.set_yticklabels(tick_labels)
-ax.set_xlabel('"Providing metrics incentivizes gaming" (developer view)', fontsize=10)
-ax.set_ylabel('"I try to improve on manager\'s criteria"', fontsize=10)
-ax.legend(fontsize=9)
+ax.set_yticklabels(tick_labels, fontsize=13)
+ax.set_xlabel('"Providing metrics incentivizes gaming" (developer view)', fontsize=15)
+ax.set_ylabel('"I try to improve on manager\'s criteria"', fontsize=15)
+ax.legend(fontsize=13)
 ax.grid(True, alpha=0.2)
 ax.spines[["top","right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=13)
 
 plt.tight_layout()
 path = OUT_DIR + "output1_right_panel_gaming_belief.png"

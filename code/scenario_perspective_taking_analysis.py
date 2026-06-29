@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -143,7 +143,7 @@ for i, label in enumerate(LABELS):
 # ══════════════════════════════════════════════════════════════════════════════
 print("\n[Output 2] Generating perspective-taking chart …")
 
-fig, axes = plt.subplots(1, 2, figsize=(16, 7))
+fig, axes = plt.subplots(1, 2, figsize=(18, 8))
 
 for ax, actual_key, guess_key, actual_label, guess_label, actual_color, guess_color in [
     (axes[0], "d1", "m2", "D1 — Dev actual view", "M2 — Mgr guesses dev",
@@ -171,22 +171,23 @@ for ax, actual_key, guess_key, actual_label, guess_label, actual_color, guess_co
         actual = r[actual_key]
         guess = r[guess_key]
         ax.plot([actual, guess], [i - w/2, i + w/2],
-                color="black", linewidth=1, alpha=0.3, zorder=3)
+                color="black", linewidth=1.2, alpha=0.3, zorder=3)
         # Annotate direction of error if >15 percentage points
         diff = guess - actual
         if abs(diff) >= 15:
             arrow = "→" if diff > 0 else "←"
             ax.text(max(actual, guess) + 1.5, i,
                     f"{arrow}{abs(diff):.0f}pp", va="center",
-                    fontsize=7.5, color="gray")
+                    fontsize=11, color="gray")
 
     ax.set_yticks(y)
-    ax.set_yticklabels([r["label_nl"] for r in s_sorted], fontsize=8.5)
+    ax.set_yticklabels([r["label_nl"] for r in s_sorted], fontsize=12)
     ax.set_xlim(0, 115)
     ax.axvline(50, color="gray", linestyle="--", linewidth=0.7, alpha=0.4)
-    ax.set_xlabel("% choosing Scenario B (team-oriented)")
-    ax.legend(loc="lower right", fontsize=9)
+    ax.set_xlabel("% choosing Scenario B (team-oriented)", fontsize=14)
+    ax.legend(loc="lower right", fontsize=12)
     ax.spines[["top", "right"]].set_visible(False)
+    ax.tick_params(axis='both', which='major', labelsize=12)
 
 plt.tight_layout()
 path = OUT_DIR + "scenarios_output2_perspectivetaking.png"

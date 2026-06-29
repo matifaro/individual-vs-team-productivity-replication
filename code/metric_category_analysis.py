@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -174,7 +174,7 @@ cats_s   = [r["cat"] for r in s1]
 use_pcts = [r["use_pct"] for r in s1]
 util_mgr = [r["mgr_util"] for r in s1]
 
-fig, ax1 = plt.subplots(figsize=(12, 6))
+fig, ax1 = plt.subplots(figsize=(13, 7))
 
 x = np.arange(len(cats_s))
 w = 0.45
@@ -183,34 +183,34 @@ bars = ax1.bar(x, use_pcts, w, color=MGR_COLOR, alpha=0.8,
                label="% Managers using", zorder=2)
 for bar, v in zip(bars, use_pcts):
     ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1,
-             f"{v:.0f}%", ha="center", va="bottom", fontsize=8.5, color=MGR_COLOR,
+             f"{v:.0f}%", ha="center", va="bottom", fontsize=12, color=MGR_COLOR,
              fontweight="bold")
 
-ax1.set_ylabel("% Managers using this category", color=MGR_COLOR, fontsize=11)
+ax1.set_ylabel("% Managers using this category", color=MGR_COLOR, fontsize=15)
 ax1.set_ylim(0, 120)
-ax1.tick_params(axis="y", labelcolor=MGR_COLOR)
+ax1.tick_params(axis="y", labelcolor=MGR_COLOR, labelsize=12)
 ax1.set_xticks(x)
-ax1.set_xticklabels(cats_s, rotation=30, ha="right", fontsize=9)
+ax1.set_xticklabels(cats_s, rotation=30, ha="right", fontsize=13)
 ax1.axhline(50, color=MGR_COLOR, linestyle="--", linewidth=0.7, alpha=0.4)
 ax1.spines[["top"]].set_visible(False)
 
 ax2 = ax1.twinx()
-ax2.plot(x, util_mgr, color="darkorange", marker="D", linewidth=2,
-         markersize=7, label="Mean usefulness (managers)", zorder=3)
+ax2.plot(x, util_mgr, color="darkorange", marker="D", linewidth=2.5,
+         markersize=8, label="Mean usefulness (managers)", zorder=3)
 for xi, v in zip(x, util_mgr):
-    ax2.text(xi + 0.05, v + 0.07, f"{v:.1f}", fontsize=8, color="darkorange",
+    ax2.text(xi + 0.05, v + 0.07, f"{v:.1f}", fontsize=12, color="darkorange",
              fontweight="bold")
-ax2.set_ylabel("Mean usefulness score (1–5)", color="darkorange", fontsize=11)
+ax2.set_ylabel("Mean usefulness score (1–5)", color="darkorange", fontsize=15)
 ax2.set_ylim(1, 6)
 ax2.set_yticks([1, 2, 3, 4, 5])
 ax2.set_yticklabels(["Not useful\nat all", "Not very\nuseful", "Neutral",
-                      "Somewhat\nuseful", "Very\nuseful"], fontsize=8)
-ax2.tick_params(axis="y", labelcolor="darkorange")
+                      "Somewhat\nuseful", "Very\nuseful"], fontsize=11)
+ax2.tick_params(axis="y", labelcolor="darkorange", labelsize=12)
 ax2.spines[["top"]].set_visible(False)
 
 lines1, labels1 = ax1.get_legend_handles_labels()
 lines2, labels2 = ax2.get_legend_handles_labels()
-ax1.legend(lines1 + lines2, labels1 + labels2, loc="upper right", fontsize=9)
+ax1.legend(lines1 + lines2, labels1 + labels2, loc="upper right", fontsize=13)
 
 plt.tight_layout()
 path = OUT_DIR + "metrics_output1_use_vs_useful.png"
@@ -227,7 +227,7 @@ print("[Output 2] Managers vs Developers usefulness …")
 # Sort by overall mean usefulness
 s2 = sorted(stats, key=lambda x: (x["mgr_util"] + x["dev_util"]) / 2, reverse=True)
 
-fig, axes = plt.subplots(1, 2, figsize=(15, 6),
+fig, axes = plt.subplots(1, 2, figsize=(17, 7),
                          gridspec_kw={"width_ratios": [3, 1]})
 
 # Left — grouped bars (% Somewhat/Very useful)
@@ -245,19 +245,20 @@ ax.barh(y + w/2, dev_pos, w, color=DEV_COLOR, alpha=0.85,
 for i, (m, d, r) in enumerate(zip(mgr_pos, dev_pos, s2)):
     s = r["sig"]
     if s != "(ns)":
-        ax.text(max(m, d) + 1.5, i, s, va="center", fontsize=10,
+        ax.text(max(m, d) + 1.5, i, s, va="center", fontsize=14,
                 color="darkred", fontweight="bold")
     # Connect with line
     ax.plot([m, d], [i - w/2, i + w/2], color="black",
-            linewidth=1, alpha=0.35, zorder=3)
+            linewidth=1.2, alpha=0.35, zorder=3)
 
 ax.set_yticks(y)
-ax.set_yticklabels([r["cat"] for r in s2], fontsize=9)
+ax.set_yticklabels([r["cat"] for r in s2], fontsize=13)
 ax.set_xlim(0, 115)
-ax.set_xlabel('% "Somewhat useful" or "Very useful"')
+ax.set_xlabel('% "Somewhat useful" or "Very useful"', fontsize=15)
 ax.axvline(50, color="gray", linestyle="--", linewidth=0.7, alpha=0.4)
-ax.legend(loc="lower right", fontsize=9)
+ax.legend(loc="lower right", fontsize=13)
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=12)
 
 # Right — mean score gap
 ax2 = axes[1]
@@ -273,14 +274,15 @@ for bar, val, r in zip(bars, gaps, s2):
     if s != "(ns)":
         label_txt += f" {s}"
     ax2.text(xpos, bar.get_y() + bar.get_height()/2,
-             label_txt, va="center", ha=ha, fontsize=8)
+             label_txt, va="center", ha=ha, fontsize=12)
 ax2.set_yticks(y); ax2.set_yticklabels([])
-ax2.set_xlabel("Mean score gap\n(Mgr − Dev)")
+ax2.set_xlabel("Mean score gap\n(Mgr − Dev)", fontsize=15)
 ax2.spines[["top", "right"]].set_visible(False)
+ax2.tick_params(axis='both', which='major', labelsize=12)
 
 # Add note about significance (no Bonferroni)
 note = "* p<0.05  ** p<0.01  *** p<0.001 "
-fig.text(0.98, 0.01, note, ha="right", fontsize=7.5, color="gray", style="italic")
+fig.text(0.98, 0.01, note, ha="right", fontsize=11, color="gray", style="italic")
 plt.tight_layout()
 path = OUT_DIR + "metrics_output2_mgr_vs_dev_useful.png"
 plt.savefig(path, dpi=150, bbox_inches="tight")
@@ -294,7 +296,7 @@ plt.close()
 # ══════════════════════════════════════════════════════════════════════════════
 print("[Output 3] Usefulness distribution heatmaps …")
 
-fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+fig, axes = plt.subplots(1, 2, figsize=(18, 7))
 for ax, subset, role, color in [
     (axes[0], mgr, f"Managers (n={N_MGR})", MGR_COLOR),
     (axes[1], dev, f"Developers (n={N_DEV})", DEV_COLOR),
@@ -309,16 +311,17 @@ for ax, subset, role, color in [
     ])
     im = ax.imshow(mat, cmap="RdYlGn", aspect="auto", vmin=0, vmax=70)
     ax.set_xticks(range(5))
-    ax.set_xticklabels([l.replace(" ", "\n") for l in USEFUL_ORDER], fontsize=8.5)
+    ax.set_xticklabels([l.replace(" ", "\n") for l in USEFUL_ORDER], fontsize=12)
     ax.set_yticks(range(len(sorted_cats)))
-    ax.set_yticklabels(sorted_cats, fontsize=9)
-    ax.set_title(role, fontweight="bold", fontsize=11)
+    ax.set_yticklabels(sorted_cats, fontsize=12)
+    ax.set_title(role, fontweight="bold", fontsize=14)
     for i in range(len(sorted_cats)):
         for j in range(5):
             v = mat[i, j]
             ax.text(j, i, f"{v:.0f}%", ha="center", va="center",
-                    color="white" if v > 50 else "black", fontsize=8)
+                    color="white" if v > 50 else "black", fontsize=11)
     plt.colorbar(im, ax=ax, label="%", shrink=0.85)
+    ax.tick_params(axis='both', which='major', labelsize=12)
 
 plt.tight_layout()
 path = OUT_DIR + "metrics_output3_useful_heatmap.png"

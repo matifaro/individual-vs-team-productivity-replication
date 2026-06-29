@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -225,7 +225,7 @@ print(f"\n  Cross-role tension MWU: U={u_t:.1f}, p={p_t:.4f}  {sig_label(p_t)}")
 # ══════════════════════════════════════════════════════════════════════════════
 # FIGURE 2 — Paired arrow: Quant → Context within each role
 # ══════════════════════════════════════════════════════════════════════════════
-fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(13, 6), sharey=True)
 
 for ax, (role_lbl, subset, qcol, ccol, role_color) in zip(axes, [
     ("Managers",   mgr, MGR_QUANT_COL, MGR_CONTEXT_COL, MGR_COLOR),
@@ -241,24 +241,25 @@ for ax, (role_lbl, subset, qcol, ccol, role_color) in zip(axes, [
         qs, cs = row_["q"], row_["c"]
         color = CTX_COLOR if cs > qs else (QUANT_COLOR if cs < qs else "#9CA3AF")
         ax.annotate("", xy=(1 + jitter[idx], cs), xytext=(0 + jitter[idx], qs),
-                    arrowprops=dict(arrowstyle="->", color=color, lw=1.2, alpha=0.7))
+                    arrowprops=dict(arrowstyle="->", color=color, lw=1.5, alpha=0.7))
     ax.scatter(np.zeros(len(paired)) + jitter, paired["q"],
-               color=QUANT_COLOR, s=45, zorder=5, label="Quantitative")
+               color=QUANT_COLOR, s=55, zorder=5, label="Quantitative")
     ax.scatter(np.ones(len(paired)) + jitter, paired["c"],
-               color=CTX_COLOR, s=45, zorder=5, label="Contextual")
+               color=CTX_COLOR, s=55, zorder=5, label="Contextual")
     ax.plot([0, 1], [paired["q"].mean(), paired["c"].mean()],
-            color="black", linewidth=2, linestyle="--", zorder=6,
+            color="black", linewidth=2.5, linestyle="--", zorder=6,
             label=f"Mean ({paired['q'].mean():.2f} → {paired['c'].mean():.2f})")
 
     ax.set_xticks([0, 1])
-    ax.set_xticklabels(["Quantitative", "Contextual"], fontsize=11)
+    ax.set_xticklabels(["Quantitative", "Contextual"], fontsize=14)
     ax.set_yticks([1, 2, 3, 4, 5])
     ax.set_yticklabels(["Strongly\nDisagree", "Disagree", "Neutral",
-                        "Agree", "Strongly\nAgree"], fontsize=9)
-    ax.set_title(f"{role_lbl} (n={len(paired)})", fontweight="bold", fontsize=11)
+                        "Agree", "Strongly\nAgree"], fontsize=12)
+    ax.set_title(f"{role_lbl} (n={len(paired)})", fontweight="bold", fontsize=14)
     ax.set_xlim(-0.5, 1.5)
-    ax.legend(fontsize=8)
+    ax.legend(fontsize=12)
     ax.spines[["top", "right"]].set_visible(False)
+    ax.tick_params(axis='both', which='major', labelsize=12)
 
 plt.tight_layout()
 path = OUT_DIR + "qvsc_fig2_paired_arrows.png"

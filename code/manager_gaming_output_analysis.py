@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -79,7 +79,7 @@ for level, pct, n in zip(gaming_levels, out_pcts, n_per_level):
     print(f"  {level:<15}: {pct:.0f}% use Output metrics  (n={n})")
 
 # PLOT
-fig, ax = plt.subplots(figsize=(7, 5))
+fig, ax = plt.subplots(figsize=(8, 6))
 
 colors = ["#93C5FD", "#60A5FA", "#3B82F6", "#1D4ED8"][:len(gaming_levels)]
 bars = ax.bar(range(len(gaming_levels)), out_pcts,
@@ -87,20 +87,21 @@ bars = ax.bar(range(len(gaming_levels)), out_pcts,
 
 for bar, pct, n in zip(bars, out_pcts, n_per_level):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,
-            f"{pct:.0f}%\n(n={n})", ha="center", va="bottom", fontsize=9,
+            f"{pct:.0f}%\n(n={n})", ha="center", va="bottom", fontsize=14,
             fontweight="bold")
 
 ax.set_xticks(range(len(gaming_levels)))
-ax.set_xticklabels(gaming_levels, fontsize=9)
+ax.set_xticklabels(gaming_levels, fontsize=14)
 ax.set_ylim(0, 120)
 ax.axhline(50, color="gray", linestyle="--", linewidth=0.7, alpha=0.4,
            label="50% reference")
 
-ax.set_xlabel('"Metrics incentivize gaming" (manager agreement)', fontsize=10)
-ax.set_ylabel("% still using Output & Efficiency", fontsize=10)
+ax.set_xlabel('"Metrics incentivize gaming" (manager agreement)', fontsize=15)
+ax.set_ylabel("% still using Output & Efficiency", fontsize=15)
 
-ax.legend(fontsize=9)
+ax.legend(fontsize=13)
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=13)
 
 plt.tight_layout()
 path = OUT_DIR + "output3_right_panel_manager_output_metrics.png"

@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -165,7 +165,7 @@ dev_pcts = [r["dev"] for r in rows]
 p_values = [r["p"] for r in rows]
 
 # Create figure with two panels: main chart + gap panel
-fig, axes = plt.subplots(1, 2, figsize=(15, 6.5),
+fig, axes = plt.subplots(1, 2, figsize=(17, 7.5),
                          gridspec_kw={"width_ratios": [3, 1]})
 
 y = np.arange(len(rows))
@@ -183,16 +183,17 @@ for i, (m, d, p) in enumerate(zip(mgr_pcts, dev_pcts, p_values)):
     sig = significance_star(p)
     if sig:
         max_val = max(m, d)
-        ax.text(max_val + 1.5, i, sig, va="center", fontsize=10,
+        ax.text(max_val + 1.5, i, sig, va="center", fontsize=14,
                 color="darkred", fontweight="bold")
 
 ax.set_yticks(y)
-ax.set_yticklabels(labels_sorted, fontsize=9)
+ax.set_yticklabels(labels_sorted, fontsize=13)
 ax.set_xlim(0, 105)
-ax.set_xlabel('% who selected "Yes"', fontsize=10)
+ax.set_xlabel('% who selected "Yes"', fontsize=15)
 ax.axvline(50, color="gray", linestyle="--", linewidth=0.7, alpha=0.5)
-ax.legend(loc="lower right", fontsize=9)
+ax.legend(loc="lower right", fontsize=13)
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=12)
 
 # Right panel: Gap (Manager - Developer)
 ax2 = axes[1]
@@ -210,16 +211,17 @@ for bar, val, p in zip(bars_gap, gaps, p_values):
     if sig:
         label += f" {sig}"
     ax2.text(xpos, bar.get_y() + bar.get_height() / 2,
-             label, va="center", ha=ha, fontsize=8)
+             label, va="center", ha=ha, fontsize=12)
 
 ax2.set_yticks(y)
 ax2.set_yticklabels([])
-ax2.set_xlabel("Gap (Managers − Developers)", fontsize=10)
+ax2.set_xlabel("Gap (Managers − Developers)", fontsize=15)
 ax2.spines[["top", "right"]].set_visible(False)
+ax2.tick_params(axis='both', which='major', labelsize=12)
 
 # Add note about significance
 fig.text(0.98, 0.01, "* p<0.05  ** p<0.01  *** p<0.001 (Fisher's exact test, two-sided)",
-         ha="right", fontsize=8, color="gray", style="italic")
+         ha="right", fontsize=11, color="gray", style="italic")
 
 plt.tight_layout()
 path = OUT_DIR + "proddef_barchart.png"

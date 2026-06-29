@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -166,7 +166,7 @@ s1 = sorted(scenario_stats, key=lambda x: (x["m1"] + x["d1"]) / 2, reverse=True)
 y  = np.arange(len(s1))
 w  = 0.35
 
-fig, axes = plt.subplots(1, 2, figsize=(14, 7),
+fig, axes = plt.subplots(1, 2, figsize=(16, 8),
                          gridspec_kw={"width_ratios": [3, 1]})
 
 # Left panel: Grouped bars
@@ -181,17 +181,18 @@ for i, r in enumerate(s1):
     s = r["sig_m1d1"]
     if s and s != "(ns)":
         ax.text(max(r["m1"], r["d1"]) + 1.5, i, s, va="center",
-                fontsize=10, color="darkred", fontweight="bold")
+                fontsize=14, color="darkred", fontweight="bold")
     ax.plot([r["m1"], r["d1"]], [i - w/2, i + w/2],
-            color="black", linewidth=1, alpha=0.3, zorder=3)
+            color="black", linewidth=1.2, alpha=0.3, zorder=3)
 
 ax.set_yticks(y)
-ax.set_yticklabels([r["label_nl"] for r in s1], fontsize=8.5)
+ax.set_yticklabels([r["label_nl"] for r in s1], fontsize=12)
 ax.set_xlim(0, 115)
 ax.axvline(50, color="gray", linestyle="--", linewidth=0.7, alpha=0.4)
-ax.set_xlabel("% choosing Scenario B (team-oriented behaviour)")
-ax.legend(loc="lower right", fontsize=9)
+ax.set_xlabel("% choosing Scenario B (team-oriented behaviour)", fontsize=14)
+ax.legend(loc="lower right", fontsize=12)
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=12)
 
 # Right panel: Gap
 ax2 = axes[1]
@@ -208,15 +209,16 @@ for bar, val, r in zip(bars, gaps, s1):
     if s and s != "(ns)":
         label_txt += f" {s}"
     ax2.text(xpos, bar.get_y() + bar.get_height()/2,
-             label_txt, va="center", ha=ha, fontsize=8)
+             label_txt, va="center", ha=ha, fontsize=12)
 
 ax2.set_yticks(y)
 ax2.set_yticklabels([])
-ax2.set_xlabel("Gap (M1 − D1)")
+ax2.set_xlabel("Gap (M1 − D1)", fontsize=14)
 ax2.spines[["top", "right"]].set_visible(False)
+ax2.tick_params(axis='both', which='major', labelsize=12)
 
 note = "* p<0.05  ** p<0.01  *** p<0.001"
-fig.text(0.98, 0.01, note, ha="right", fontsize=7.5, color="gray", style="italic")
+fig.text(0.98, 0.01, note, ha="right", fontsize=11, color="gray", style="italic")
 plt.tight_layout()
 
 path = OUT_DIR + "scenarios_output1_M1vsD1.png"

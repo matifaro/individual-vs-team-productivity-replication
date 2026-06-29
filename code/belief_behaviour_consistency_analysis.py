@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -172,11 +172,12 @@ for i, (level, color) in enumerate(zip(belief_order, colors_levels)):
 
 ax.axhline(50, color="gray", linestyle="--", linewidth=0.7, alpha=0.4)
 ax.set_xticks(x)
-ax.set_xticklabels(cat_names, rotation=35, ha="right", fontsize=9)
+ax.set_xticklabels(cat_names, rotation=35, ha="right", fontsize=14)
 ax.set_ylim(0, 115)
-ax.set_ylabel('% managers using this category', fontsize=11)
-ax.legend(title="Belief level", fontsize=9, title_fontsize=9)
+ax.set_ylabel('% managers using this category', fontsize=16)
+ax.legend(title="Belief level", fontsize=14, title_fontsize=16)
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=13)
 
 plt.tight_layout()
 path = OUT_DIR + "consist_output1_belief_vs_use.png"
@@ -215,12 +216,13 @@ bars = ax.bar(summary["label"], summary["pct"],
 for bar, (_, row) in zip(bars, summary.iterrows()):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1.5,
             f"{row['pct']:.0f}%\n(n={int(row['count'])})",
-            ha="center", va="bottom", fontsize=9, fontweight="bold")
+            ha="center", va="bottom", fontsize=14, fontweight="bold")
 ax.axhline(100, color="gray", linestyle=":", linewidth=0.8, alpha=0.5)
 ax.set_ylim(0, 120)
-ax.set_xlabel('"Metrics must be contextualized" (SD=1 … SA=5)', fontsize=10)
-ax.set_ylabel("% using Output & Efficiency", fontsize=10)
+ax.set_xlabel('"Metrics must be contextualized" (SD=1 … SA=5)', fontsize=15)
+ax.set_ylabel("% using Output & Efficiency", fontsize=15)
 ax.spines[["top", "right"]].set_visible(False)
+ax.tick_params(axis='both', which='major', labelsize=14)
 
 # Right: same data for all 9 categories — % using by strong believers vs rest
 ax2 = axes[1]
@@ -237,12 +239,13 @@ ax2.barh(y2 - w2/2, cat_pct_strong, w2, color="#1D4ED8", alpha=0.85,
 ax2.barh(y2 + w2/2, cat_pct_other,  w2, color="#93C5FD", alpha=0.85,
          label=f"Neutral or below (n={len(other)})")
 ax2.set_yticks(y2)
-ax2.set_yticklabels(cat_names, fontsize=8.5)
+ax2.set_yticklabels(cat_names, fontsize=13)
 ax2.set_xlim(0, 115)
 ax2.axvline(50, color="gray", linestyle="--", linewidth=0.7, alpha=0.4)
-ax2.set_xlabel("% using this category")
-ax2.legend(fontsize=8.5, loc="lower right")
+ax2.set_xlabel("% using this category", fontsize=15)
+ax2.legend(fontsize=13, loc="lower right")
 ax2.spines[["top", "right"]].set_visible(False)
+ax2.tick_params(axis='both', which='major', labelsize=13)
 
 plt.tight_layout()
 path = OUT_DIR + "consist_output3_headline.png"

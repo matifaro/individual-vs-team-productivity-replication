@@ -4,7 +4,7 @@ PROJECT: Measuring What Really Matters: Individual vs Team Productivity in Softw
 AUTHOR: Matilde Faro Martins Castelo Pires
 CONTACT: matildefaro.work@gmail.com
 DATE CREATED: 26 May 2026
-DATE LAST MODIFIED: 26 June 2026
+DATE LAST MODIFIED: 30 June 2026
 VERSION: 1.0
 
 DESCRIPTION:
@@ -138,7 +138,7 @@ common_w = dev_why.index.intersection(dev_criteria.index)
 xw = dev_why.loc[common_w]
 yw = dev_criteria.loc[common_w]
 
-fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+fig, axes = plt.subplots(1, 2, figsize=(15, 6))
 
 jitter = 0.12
 tick_labels = ["SD", "D", "N", "A", "SA"]
@@ -151,19 +151,22 @@ for ax, x_vals, y_vals, r_val, p_val, n, xlabel, color in [
 ]:
     ax.scatter(x_vals + np.random.uniform(-jitter, jitter, len(x_vals)),
                y_vals + np.random.uniform(-jitter, jitter, len(y_vals)),
-               alpha=0.65, s=60, color=color, edgecolors="white", linewidth=0.5)
+               alpha=0.65, s=70, color=color, edgecolors="white", linewidth=0.5)
     z = np.polyfit(x_vals, y_vals, 1)
-    ax.plot([1, 5], np.poly1d(z)([1, 5]), "k--", linewidth=1.8, alpha=0.7,
+    ax.plot([1, 5], np.poly1d(z)([1, 5]), "k--", linewidth=2, alpha=0.7,
             label=f"Trend (slope={z[0]:.2f})")
-    ax.set_xticks([1, 2, 3, 4, 5]); ax.set_xticklabels(tick_labels)
-    ax.set_yticks([1, 2, 3, 4, 5]); ax.set_yticklabels(tick_labels)
-    ax.set_xlabel(xlabel, fontsize=10)
-    ax.set_ylabel('"I try to improve on manager\'s criteria"', fontsize=10)
+    ax.set_xticks([1, 2, 3, 4, 5])
+    ax.set_xticklabels(tick_labels, fontsize=13)
+    ax.set_yticks([1, 2, 3, 4, 5])
+    ax.set_yticklabels(tick_labels, fontsize=13)
+    ax.set_xlabel(xlabel, fontsize=14)
+    ax.set_ylabel('"I try to improve on manager\'s criteria"', fontsize=14)
     ax.set_title(f"Spearman r = {r_val:.3f}, p = {p_val:.4f} ({sig_label(p_val)}, n={n})",
-                 fontsize=10, fontweight="bold")
-    ax.legend(fontsize=9)
+                 fontsize=13, fontweight="bold")
+    ax.legend(fontsize=12)
     ax.grid(True, alpha=0.2)
     ax.spines[["top", "right"]].set_visible(False)
+    ax.tick_params(axis='both', which='major', labelsize=12)
 
 axes[0].set_title(axes[0].get_title(), color=DEV_COLOR)
 axes[1].set_title(axes[1].get_title(), color="#DC7633")
